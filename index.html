@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="MaxTrack helps students organise tasks by subject and priority, track deadlines and view progress charts.>
+            MaxTrack | Home
+        </title>
+
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to main content</a>
+
+        <!-- Header Decor and Navigation -->
+        <header class="site-header">
+            <div class="container header-inner">
+                <a class="logo" href="index.html">MaxTrack</a>
+
+                <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">
+                    Menu
+                </button>
+                <nav id="siteNav" class="site-nav" aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="index.html" aria-current="page">Home</a></li>
+                        <li><a href="planner.html">Study Planner</a></li>
+                        <li><a href="about.html">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <main id="main">
+
+            <!-- Hero -->
+            <section class="hero">
+                <div class="container hero-inner">
+                    <h1>Know what is due before it's late</h1>
+                    <p>Add tasks per subject, set priorities and watch your progress grow. Your data stays in your browser.</p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="planner.html">Add a task</a>
+                        <a class="btn btn-secondary" href="#dashboard">View my Progress</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard -->
+            <section id="dashboard" class="container section" aria-labelledby="dashboardTitle">
+                <h2 id="dashboardTitle">Your dashboard</h2>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <h3>Total tasks</h3>
+                        <p class="stat-number" id="statTotal">0</p>
+                    </article>
+                    <article class="stat-card">
+                        <h3>Completed</h3>
+                        <p class="stat-number" id="statDone">0</p>
+                    </article>
+                    <article class="stat-card">
+                        <h3>Due in 3 days</h3>
+                        <p class="stat-number" id="statSoon">0</p>
+                    </article>
+                    <article class="stat-card">
+                        <h3>Overdue</h3>
+                        <p class="stat-number" id="statDue">0</p>
+                    </article>
+                </div>
+            </section>
+
+            
+        </main>
+    </body>
+</html>
