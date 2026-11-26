@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="About MaxTrack: the problem it solves, its features, the team behind it and a contact form.">
+        <title>MaxTrack | About</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <a class="skip-link" href="#main">Skip to main content</a>
+
+        <!-- Header and Navigation -->
+        <header class="site-header">
+            <div class="container header-inner">
+                <a class="logo" href="index.html">MaxTrack</a>
+
+                <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">
+                    Menu
+                </button>
+                <nav id="siteNav" class="site-nav" aria-label="Main Navigation">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="planner.html">Study Planner</a></li>
+                        <li><a href="about.html" aria-current="page">About</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main id="main">
+
+            <!-- Page title -->
+            <section class="container section page-intro">
+                <h1>About MaxTrack</h1>
+                <p>A simple, browser-based study planner built for students who juggle several subjects and deadlines.</p>
+            </section>
+
+            <!-- The problem -->
+            <section class="container section" aria-labelledby="problemTitle">
+                <h2 id="problemTitle">The problem we are solving</h2>
+                <p>Students manage assignments, labs and exams across many subjects, but their deadlines are usually scattered across notes, chat groups and memory. This leads to missed deadlines and poor prioritisation. MaxTrack gives them one place to organise tasks by subject and priority, spot overdue work and see their progress.</p>
+            </section>
+
+            <!-- Features -->
+            <section class="container section" aria-labelledby="featuresTitle">
+                <h2 id="featuresTitle">What MaxTrack does</h2>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <h3>Task management</h3>
+                        <p>Add, edit, delete and complete tasks with validated input.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Filter and search</h3>
+                        <p>Narrow the list by subject, priority or status, or search by title.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Deadline tracking</h3>
+                        <p>Overdue and due-soon tasks are highlighted automatically.</p>
+                    </article>
+                    <article class="feature-card">
+                        <h3>Progress dashboard</h3>
+                        <p>See completed tasks and progress for each subject on the home page.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Technologies -->
+            <section class="container section" aria-labelledby="techTitle">
+                <h2 id="techTitle">Built with</h2>
+                <ul class="tech-list">
+                    <li><strong>HTML5:</strong> semantic structure and accessible forms</li>
+                    <li><strong>CSS3:</strong> Flexbox, Grid and a responsive layout</li>
+                    <li><strong>JavaScript:</strong> DOM manipulation, event handling, validation and localStorage</li>
+                </ul>
+                <p class="note">Your tasks are saved only in your own browser. Clearing the browser data removes them.</p>
+            </section>
+
+            <!-- Team -->
+            <section class="container section" aria-labelledby="teamTitle">
+                <h2 id="teamTitle">The team</h2>
+                <div class="team-grid">
+                    <article class="team-card">
+                        <h3>Max</h3>
+                        <p class="team-role">Role: add your role here</p>
+                        <p>Add one line about what this member built.</p>
+                    </article>
+                    <article class="team-card">
+                        <h3>Member 2</h3>
+                        <p class="team-role">Role: add your role here</p>
+                        <p>Add one line about what this member built.</p>
+                    </article>
+                    <article class="team-card">
+                        <h3>Member 3</h3>
+                        <p class="team-role">Role: add your role here</p>
+                        <p>Add one line about what this member built.</p>
+                    </article>
+                    <article class="team-card">
+                        <h3>Member 4</h3>
+                        <p class="team-role">Role: add your role here</p>
+                        <p>Add one line about what this member built.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Contact Form -->
+            <section class="container section" aria-labelledby="contactTitle">
+                <h2 id="contactTitle">Contact us</h2>
+                <p>Found a bug or have a suggestion? Send us a message.</p>
+
+                <form id="contactForm" class="task-form" novalidate>
+                    <div class="form-group">
+                        <label for="contactName">Your name</label>
+                        <input type="text" id="contactName" name="contactName" required minlength="2" maxlength="50" autocomplete="name">
+                        <span class="error" id="contactNameError" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" name="contactEmail" required autocomplete="email" placeholder="you@example.com">
+                        <span class="error" id="contactEmailError" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactTopic">Topic</label>
+                        <select id="contactTopic" name="contactTopic" required>
+                            <option value="">Choose a topic</option>
+                            <option value="bug">Report a bug</option>
+                            <option value="feature">Suggest a feature</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <span class="error" id="contactTopicError" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea id="contactMessage" name="contactMessage" rows="5" required minlength="10" maxlength="500"></textarea>
+                        <span class="error" id="contactMessageError" aria-live="polite"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Send message</button>
+                    </div>
+
+                    <p id="contactSuccess" class="success-message" role="status" hidden>Thank you! Your message has been recorded.</p>
+                </form>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <p>&copy; 2026 MaxTrack. Web-Dev Mini Project, Bennett University.</p>
+                <p>Tech stack - HTML5, CSS3 and JavaScript</p>
+            </div>
+        </footer>
+
+        <script src="js/nav.js"></script>
+        <script src="js/validate.js"></script>
+
+    </body>
+</html>

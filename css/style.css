@@ -1,0 +1,610 @@
+/* ==========================================================
+   MaxTrack - style.css
+   Sections: 1 Variables | 2 Reset | 3 Layout | 4 Header/Nav
+   5 Hero + Buttons | 6 Dashboard | 7 Forms | 8 Task list
+   9 Cards (about) | 10 Footer | 11 Responsive
+   ========================================================== */
+
+/* ---------- 1. VARIABLES (change colours here only) ---------- */
+:root {
+  --bg: #f6f7fb;
+  --surface: #ffffff;
+  --text: #1c2233;
+  --muted: #5d667a;
+  --primary: #3b4cca;
+  --primary-dark: #2c3aa3;
+  --border: #dde1ec;
+  --danger: #c62828;
+  --warning: #b26a00;
+  --success: #2e7d32;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(28, 34, 51, 0.08);
+}
+
+/* ---------- 2. RESET ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+}
+
+h1, h2, h3 {
+  line-height: 1.25;
+  margin: 0 0 0.5rem;
+}
+
+p { margin: 0 0 1rem; }
+
+a { color: var(--primary); }
+
+ul, ol { margin: 0; padding-left: 1.25rem; }
+
+img { max-width: 100%; height: auto; }
+
+/* Keyboard focus must always be visible */
+:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ---------- 3. LAYOUT HELPERS ---------- */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section { padding-block: 1.75rem; }
+
+.page-intro { padding-top: 2.5rem; }
+
+.empty-message { color: var(--muted); }
+
+.note {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Skip link: hidden until it receives keyboard focus */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: var(--primary);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+  z-index: 100;
+}
+.skip-link:focus { top: 0; }
+
+/* ---------- 4. HEADER + NAVIGATION ---------- */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 0.75rem;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  text-decoration: none;
+  color: var(--text);
+  padding: 0.35rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover { color: var(--primary); }
+
+/* Highlights the current page (uses the aria-current attribute) */
+.site-nav a[aria-current="page"] {
+  font-weight: 700;
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+/* Menu button: hidden on desktop, shown on phones (see section 11) */
+.nav-toggle {
+  display: none;
+  background: var(--primary);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+/* ---------- 5. HERO + BUTTONS ---------- */
+.hero {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  padding-block: 3.5rem;
+}
+
+.hero-inner { max-width: 760px; }
+
+.hero h1 { font-size: clamp(1.8rem, 5vw, 2.8rem); }
+
+.hero p { font-size: 1.1rem; opacity: 0.95; }
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--primary-dark); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.btn-secondary:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Buttons sitting on the blue hero need their own colours */
+.hero .btn-primary {
+  background: #fff;
+  color: var(--primary);
+}
+.hero .btn-primary:hover { background: #e8eaff; }
+
+.hero .btn-secondary {
+  color: #fff;
+  border-color: #fff;
+}
+.hero .btn-secondary:hover {
+  background: #fff;
+  color: var(--primary);
+}
+
+.btn[disabled],
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- 6. DASHBOARD ---------- */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.stat-card h3 {
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.stat-number {
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin: 0;
+  color: var(--primary);
+}
+
+/* Overdue card turns red when JS adds .has-overdue */
+.stat-card.has-overdue .stat-number { color: var(--danger); }
+
+/* Progress bars (JS creates .progress-row elements) */
+.progress-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.progress-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+}
+
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.progress-track {
+  height: 12px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--success);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+/* Upcoming deadlines */
+.upcoming-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.upcoming-list li {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+}
+
+.upcoming-list li.empty-message { border-left-color: var(--border); }
+
+/* How it works */
+.steps {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.25rem 1.25rem 2.5rem;
+}
+.steps li + li { margin-top: 0.5rem; }
+
+/* ---------- 7. FORMS ---------- */
+.task-form,
+.filter-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.task-form { max-width: 640px; }
+
+.form-group { margin-bottom: 1rem; }
+
+label,
+legend {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="search"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font: inherit;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+textarea { resize: vertical; }
+
+input:focus,
+select:focus,
+textarea:focus { border-color: var(--primary); }
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1rem;
+}
+
+.radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.radio-row label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Validation messages (written by validate.js) */
+.error {
+  display: block;
+  min-height: 1.2em;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--danger);
+}
+
+/* JS adds .invalid to a bad field and .valid to a good one */
+input.invalid,
+select.invalid,
+textarea.invalid { border-color: var(--danger); }
+
+input.valid,
+select.valid,
+textarea.valid { border-color: var(--success); }
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.success-message {
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  color: var(--success);
+  background: #e8f5e9;
+  border-radius: 8px;
+}
+
+/* Filter bar: fields sit side by side and wrap on small screens */
+.filter-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.filter-form .form-group {
+  flex: 1 1 180px;
+  margin-bottom: 0;
+}
+
+/* ---------- 8. TASK LIST (items are created by planner.js) ---------- */
+.task-count {
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.task-item.priority-high   { border-left-color: var(--danger); }
+.task-item.priority-medium { border-left-color: var(--warning); }
+.task-item.priority-low    { border-left-color: var(--success); }
+
+.task-item.done .task-title {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.task-item.overdue { background: #fff5f5; }
+
+.task-main { flex: 1; min-width: 0; }
+
+.task-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  overflow-wrap: anywhere;
+}
+
+.task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: var(--border);
+  color: var(--text);
+}
+.badge-high    { background: #fde8e8; color: var(--danger); }
+.badge-medium  { background: #fff3e0; color: var(--warning); }
+.badge-low     { background: #e8f5e9; color: var(--success); }
+.badge-overdue { background: var(--danger); color: #fff; }
+
+.task-notes {
+  margin: 0.5rem 0 0;
+  font-size: 0.95rem;
+  overflow-wrap: anywhere;
+}
+
+.task-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.task-actions button {
+  padding: 0.35rem 0.75rem;
+  font: inherit;
+  font-size: 0.875rem;
+  background: var(--surface);
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  cursor: pointer;
+}
+.task-actions button:hover { background: var(--primary); color: #fff; }
+
+.task-actions .delete-btn {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+.task-actions .delete-btn:hover { background: var(--danger); color: #fff; }
+
+/* ---------- 9. ABOUT PAGE CARDS ---------- */
+.feature-grid,
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.feature-card,
+.team-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.feature-card h3,
+.team-card h3 { color: var(--primary); }
+
+.team-role {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.tech-list { margin-bottom: 1rem; }
+.tech-list li + li { margin-top: 0.35rem; }
+
+/* ---------- 10. FOOTER ---------- */
+.site-footer {
+  margin-top: 2rem;
+  background: var(--text);
+  color: #d5d9e6;
+  padding-block: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.footer-inner p { margin: 0; }
+
+/* ---------- 11. RESPONSIVE ---------- */
+
+/* Tablets and phones */
+@media (max-width: 700px) {
+  .header-inner { flex-wrap: wrap; }
+
+  .nav-toggle { display: block; }
+
+  /* Menu is hidden until nav.js adds the .open class */
+  .site-nav {
+    display: none;
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+  .site-nav.open { display: block; }
+
+  .site-nav ul {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .site-nav li a {
+    display: block;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero { padding-block: 2.5rem; }
+
+  .task-item { flex-direction: column; }
+
+  .footer-inner { flex-direction: column; }
+}
+
+/* Very small phones */
+@media (max-width: 400px) {
+  .stat-number { font-size: 2rem; }
+  .btn { width: 100%; text-align: center; }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

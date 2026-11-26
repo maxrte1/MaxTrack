@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="MaxTrack helps students organise tasks by subject and priority, track deadlines and view progress charts.>
+        <meta name="description" content="MaxTrack helps students organise tasks by subject and priority, track deadlines and view progress charts.">
+        <title>
             MaxTrack | Home
         </title>
-
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -68,7 +68,45 @@
                 </div>
             </section>
 
-            
+            <!-- Progress Per Subject -->
+            <section class="container section" aria-labelledby="progressTitle">
+                <h2 id="progressTitle">Progress by subject</h2>
+                <div id="subjectProgress" class="progress-list">
+                    <p class="empty-message">No tasks yet. <a href="planner.html">Add your first task</a> to see your progress here.</p>
+                </div>
+            </section>
+
+            <!-- Upcoming Deadlines -->
+            <section class="container section" aria-labelledby="upcomingTitle">
+                <h2 id="upcomingTitle">Upcoming deadlines</h2>
+                <ul id="upcomingList" class="upcoming-list">
+                    <li class="empty-message">Nothing due yet.</li>
+                </ul>
+            </section>
+
+            <!-- How it works -->
+            <section class="container section" aria-labelledby="howTitle">
+                <h2 id="howTitle">How does it work?</h2>
+                <ol class="steps">
+                    <li>Open <strong>Study Planner</strong> and add a task with a subject, deadline and priority.</li>
+                    <li>Filter lists of subjects and tasks, and tick them off as you finish them.</li>
+                    <li>Come back to the home page to check overdue tasks and your progress.</li>
+                </ol>
+            </section>
+
         </main>
+
+        <!--Footer-->
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <p>&copy; 2026 MaxTrack. Web-Dev Mini Project, Bennett University.</p>
+                <p>Tech stack - HTML5, CSS3 and JavaScript</p>
+            </div>
+        </footer>
+
+        <script src="js/storage.js"></script>
+        <script src="js/nav.js"></script>
+        <script src="js/dashboard.js"></script>
+
     </body>
 </html>
