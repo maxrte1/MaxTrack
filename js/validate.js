@@ -48,6 +48,8 @@ function checkTitle(value) {
   if (!text) return "Please enter a task title.";
   if (text.length < 3) return "Title must be at least 3 characters.";
   if (text.length > 80) return "Title must be 80 characters or fewer.";
+  // Numbers are fine ("Assignment 3"), but not a title made only of digits
+  if (!/\p{L}/u.test(text)) return "Title must include at least one letter.";
   return "";
 }
 
@@ -55,6 +57,8 @@ function checkSubject(value) {
   const text = value.trim();
   if (!text) return "Please enter a subject.";
   if (text.length > 40) return "Subject must be 40 characters or fewer.";
+  // Digits are allowed ("CS50", "Maths 2"), but not a subject that is only numbers
+  if (!/\p{L}/u.test(text)) return "Subject must include at least one letter, not only numbers.";
   return "";
 }
 
@@ -68,10 +72,20 @@ function checkDeadline(value) {
   return "";
 }
 
+// Letters from any language, plus spaces, apostrophes, hyphens and dots
+// (so "Mary-Anne O'Neil", "Dr. Rao" and "José" are accepted)
+const NAME_BAD_CHARS = /[^\p{L}\s'.\-]/u;
+
 function checkName(value) {
   const text = value.trim();
   if (!text) return "Please enter your name.";
-  if (text.length < 2) return "Name must be at least 2 characters.";
+  if (/\d/.test(text)) return "Name cannot contain numbers.";
+  if (NAME_BAD_CHARS.test(text)) {
+    return "Name can only contain letters, spaces, apostrophes, hyphens and dots.";
+  }
+  if (!/^\p{L}/u.test(text)) return "Name must start with a letter.";
+  if (text.replace(/[^\p{L}]/gu, "").length < 2) return "Name must have at least 2 letters.";
+  if (text.length > 50) return "Name must be 50 characters or fewer.";
   return "";
 }
 
@@ -178,6 +192,12 @@ function clearTaskFormErrors() {
 
   fields.forEach(function (field) {
     attachLiveValidation(field.el, field.check, field.error);
+  });
+  // Name field: show the error immediately when a number or symbol is typed
+  fields[0].el.addEventListener("input", function () {
+    if (NAME_BAD_CHARS.test(fields[0].el.value)) {
+      setFieldError(fields[0].el, fields[0].error, checkName(fields[0].el.value));
+    }
   });
   // Dropdowns fire "change" rather than "input" in some browsers
   fields[2].el.addEventListener("change", function () {
