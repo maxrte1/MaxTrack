@@ -1,6 +1,10 @@
 (function () {
 
   const form = document.getElementById("taskForm");
+  const editor = document.getElementById("taskEditor");
+  const editorToggle = document.getElementById("taskEditorToggle");
+  const feedback = document.getElementById("taskFeedback");
+  const activeFilters = document.getElementById("activeFilters");
   const formTitle = document.getElementById("formTitle");
   const taskIdInput = document.getElementById("taskId");
   const titleInput = document.getElementById("title");
@@ -118,6 +122,8 @@
     refreshSubjectFilter(allTasks);
 
     const visible = allTasks.filter(matchesFilters).sort(compareTasks);
+    const extraCount = Number(filterSubject.value !== "all") + Number(filterPriority.value !== "all");
+    activeFilters.textContent = extraCount ? "(" + extraCount + ")" : "";
 
     taskList.innerHTML = "";
     visible.forEach(function (task) {
@@ -130,11 +136,12 @@
         (allTasks.length === 1 ? " task" : " tasks");
 
     if (allTasks.length === 0) {
-      emptyMessage.textContent = "No tasks yet. Fill in the form above to add your first one.";
+      emptyMessage.textContent = "No tasks yet. Select Add a task to get started.";
     } else if (visible.length === 0) {
       emptyMessage.textContent = "No tasks match your filters. Try clearing them.";
     }
     emptyMessage.hidden = visible.length > 0;
+    document.dispatchEvent(new Event("maxtrack:tasks-rendered"));
   }
 
   function enterEditMode(task) {
@@ -152,7 +159,7 @@
     cancelEditBtn.hidden = false;
     clearTaskFormErrors();
 
-    form.scrollIntoView({ behavior: "smooth", block: "start" });
+    editor.open = true;
     titleInput.focus();
   }
 
@@ -171,17 +178,30 @@
     const result = validateTaskForm();
     if (!result.valid) return;
 
-    if (taskIdInput.value) {
-      TaskStore.update(taskIdInput.value, result.data);
-    } else {
-      TaskStore.add(result.data);
+    const editing = Boolean(taskIdInput.value);
+    const task = editing ? TaskStore.update(taskIdInput.value, result.data) : TaskStore.add(result.data);
+    const saved = task && TaskStore.get(task.id);
+    if (!saved || Object.keys(result.data).some(key => saved[key] !== result.data[key])) {
+      feedback.textContent = "The task could not be saved. Please try again.";
+      return;
     }
-
+    const hiddenByFilters = !matchesFilters(task);
+    if (hiddenByFilters) filterForm.reset();
     exitEditMode();
+    editor.open = false;
     render();
+    feedback.textContent = (editing ? "Task updated." : "Task added.") + (hiddenByFilters ? " Filters cleared to show it." : "");
+    editorToggle.focus();
   });
 
-  cancelEditBtn.addEventListener("click", exitEditMode);
+  cancelEditBtn.addEventListener("click", function () {
+    const id = taskIdInput.value;
+    exitEditMode();
+    editor.open = false;
+    const item = Array.from(taskList.children).find(node => node.dataset.id === id);
+    if (item) item.querySelector('button[data-action="edit"]').focus();
+    else editorToggle.focus();
+  });
 
   // Handle buttons on dynamically added task cards.
   taskList.addEventListener("click", function (event) {
@@ -195,6 +215,9 @@
     if (action === "toggle") {
       TaskStore.toggleDone(id);
       render();
+      const updated = Array.from(taskList.children).find(node => node.dataset.id === id);
+      if (updated) updated.querySelector('button[data-action="toggle"]').focus();
+      else searchInput.focus();
     } else if (action === "edit") {
       const task = TaskStore.get(id);
       if (task) enterEditMode(task);
@@ -203,15 +226,21 @@
         TaskStore.remove(id);
         if (taskIdInput.value === id) exitEditMode();
         render();
+        searchInput.focus();
       }
     }
   });
 
-  filterForm.addEventListener("input", render);
-  filterForm.addEventListener("change", render);
+  function updateFilters() {
+    feedback.textContent = "";
+    render();
+  }
+  filterForm.addEventListener("input", updateFilters);
+  filterForm.addEventListener("change", updateFilters);
   filterForm.addEventListener("submit", function (event) {
     event.preventDefault();
   });
+  document.getElementById("clearFiltersBtn").addEventListener("click", () => { feedback.textContent = ""; });
   // Render after the browser finishes resetting the filters.
   filterForm.addEventListener("reset", function () {
     setTimeout(render, 0);

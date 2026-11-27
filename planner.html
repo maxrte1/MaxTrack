@@ -37,172 +37,190 @@
             </div>
         </header>
 
-        <main id="main">
-
-            <section class="container section page-intro">
-                <h1>Study Planner</h1>
-                <p>Plan your tasks, start a focus session and organise your week. Your tasks are saved in your browser.</p>
-            </section>
-
-            <section class="container section focus-section" aria-labelledby="focusTitle">
-                <h2 id="focusTitle">Study environment</h2>
-                <div class="study-card timer-card">
-                    <div>
-                        <h3>Focus timer</h3>
-                        <p class="study-muted">Stay on this page during your focus session.</p>
-                        <label for="studyDuration">Session length</label>
-                        <select id="studyDuration">
-                            <option value="15">15 minutes</option>
-                            <option value="25" selected>25 minutes</option>
-                            <option value="45">45 minutes</option>
-                            <option value="60">60 minutes</option>
-                        </select>
-                    </div>
-                    <div class="timer-main">
-                        <div id="studyTime" class="timer-display" role="timer" aria-label="Time remaining">25:00</div>
-                        <progress id="studyProgress" value="0" max="1500" aria-label="Focus session progress"></progress>
-                        <div class="study-actions">
-                            <button type="button" class="btn btn-primary" id="studyStart" disabled>Start focus</button>
-                            <button type="button" class="btn btn-secondary" id="studyReset" disabled>Reset</button>
-                        </div>
-                    </div>
-                    <div class="timer-info">
-                        <label class="study-check"><input type="checkbox" id="studyGuard" checked> Pause when I leave this tab</label>
-                        <p class="study-muted">Tab switches during focus: <span id="studyDistractions">0</span></p>
-                        <p id="studyStatus" role="status" class="study-status">Ready to focus.</p>
-                    </div>
+        <main id="main" class="planner-page">
+            <section class="container planner-intro" aria-labelledby="plannerTitle">
+                <div>
+                    <h1 id="plannerTitle">Study Planner</h1>
+                    <p>Manage your deadlines and make time to focus.</p>
                 </div>
-                <div class="focus-player">
-                    <div class="focus-heading">
-                        <span class="focus-icon" aria-hidden="true">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-                                <path d="M3 14v-3a9 9 0 0 1 18 0v3M3 13h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3zM21 13h-2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2z"/>
-                            </svg>
-                        </span>
-                        <div>
-                            <h3>Your study soundtrack</h3>
-                            <p id="focusDescription">Soft instrumental tones for a quiet study session.</p>
+                <nav class="planner-shortcuts" aria-label="Planner shortcuts">
+                    <a href="#focusTools">Focus tools</a>
+                    <a href="#weeklyPlan">Weekly plan</a>
+                </nav>
+            </section>
+            <div class="container planner-workspace">
+                <section class="planner-tasks" aria-labelledby="listTitle">
+                    <h2 id="listTitle">Your tasks</h2>
+                    <details class="task-editor" id="taskEditor">
+                        <summary id="taskEditorToggle" class="editor-toggle"><span id="formTitle">Add a task</span></summary>
+
+                        <form id="taskForm" class="task-form" novalidate>
+                            <input type="hidden" id="taskId" name="taskId">
+
+                            <div class="form-group">
+                                <label for="title">Task title</label>
+                                <input type="text" id="title" name="title" placeholder="e.g. Finish Maths assignment 3" required minlength="3" maxlength="80">
+                                <span class="error" id="titleError" aria-live="polite"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" list="subjectOptions" placeholder="e.g. Maths" required maxlength="40">
+                                <datalist id="subjectOptions">
+                                    <option value="Maths"></option>
+                                    <option value="Physics"></option>
+                                    <option value="Chemistry"></option>
+                                    <option value="Programming"></option>
+                                    <option value="English"></option>
+                                </datalist>
+                                <span class="error" id="subjectError" aria-live="polite"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="deadline">Deadline</label>
+                                <input type="date" id="deadline" name="deadline" required>
+                                <span class="error" id="deadlineError" aria-live="polite"></span>
+                            </div>
+
+                            <fieldset class="form-group">
+                                <legend>Priority</legend>
+                                <div class="radio-row">
+                                    <label><input type="radio" name="priority" value="high"> High</label>
+                                    <label><input type="radio" name="priority" value="medium" checked> Medium</label>
+                                    <label><input type="radio" name="priority" value="low"> Low</label>
+                                </div>
+                                <span class="error" id="priorityError" aria-live="polite"></span>
+                            </fieldset>
+
+                            <div class="form-group">
+                                <label for="notes">Notes (optional)</label>
+                                <textarea id="notes" name="notes" rows="3" maxlength="200" placeholder="Chapters, links, reminders..."></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary" id="saveBtn">Save task</button>
+                                <button type="button" class="btn btn-secondary" id="cancelEditBtn" hidden>Cancel edit</button>
+                            </div>
+                        </form>
+                    </details>
+                    <form id="filterForm" class="filter-form planner-filters" role="search" aria-labelledby="filterTitle">
+                        <span id="filterTitle" class="planner-sr-only">Find tasks</span>
+                        <div class="filter-primary">
+                            <div class="form-group">
+                                <label for="searchInput">Search</label>
+                                <input type="search" id="searchInput" placeholder="Search by title">
+                            </div>
+                            <div class="form-group">
+                                <label for="filterStatus">Status</label>
+                                <select id="filterStatus">
+                                    <option value="all">All</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="done">Completed</option>
+                                    <option value="overdue">Overdue</option>
+                                </select>
+                            </div>
                         </div>
+                        <div class="filter-options">
+                            <details id="moreFilters">
+                                <summary>More filters <span id="activeFilters"></span></summary>
+                                <div class="filter-extra">
+                                    <div class="form-group">
+                                        <label for="filterSubject">Subject</label>
+                                        <select id="filterSubject">
+                                            <option value="all">All subjects</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="filterPriority">Priority</label>
+                                        <select id="filterPriority">
+                                            <option value="all">All priorities</option>
+                                            <option value="high">High</option>
+                                            <option value="medium">Medium</option>
+                                            <option value="low">Low</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </details>
+                            <button type="reset" class="btn btn-secondary" id="clearFiltersBtn">Clear filters</button>
+                        </div>
+                    </form>
+                    <p id="taskFeedback" class="task-feedback" role="status"></p>
+                    <p id="taskCount" class="task-count" aria-live="polite"></p>
+
+                    <ul id="taskList" class="task-list">
+                    </ul>
+
+                    <p id="emptyMessage" class="empty-message">No tasks yet. Select Add a task to get started.</p>
+                </section>
+                <section class="focus-section" id="focusTools" aria-labelledby="focusTitle">
+                    <div class="focus-section-heading">
+                        <h2 id="focusTitle">Focus tools</h2>
+                        <a href="#plannerTitle">Back to tasks</a>
                     </div>
-                    <div class="focus-controls">
+                    <div class="study-card timer-card">
                         <div>
-                            <label for="focusSound">Sound</label>
-                            <select id="focusSound" aria-describedby="focusDescription">
-                                <option value="ambient">Ambient study music</option>
-                                <option value="white">White noise</option>
-                                <option value="pink">Pink noise</option>
-                                <option value="brown">Brown noise</option>
-                                <option value="alpha">Binaural beats - 10 Hz (Alpha)</option>
-                                <option value="theta">Binaural beats - 6 Hz (Theta)</option>
+                            <h3>Focus timer</h3>
+                            <label for="studyDuration">Session length</label>
+                            <select id="studyDuration">
+                                <option value="15">15 minutes</option>
+                                <option value="25" selected>25 minutes</option>
+                                <option value="45">45 minutes</option>
+                                <option value="60">60 minutes</option>
                             </select>
                         </div>
-                        <div class="focus-volume">
-                            <label for="focusVolume">Volume <output id="focusVolumeValue" for="focusVolume">25%</output></label>
-                            <input type="range" id="focusVolume" min="0" max="100" value="25">
+                        <div class="timer-main">
+                            <div id="studyTime" class="timer-display" role="timer" aria-label="Time remaining">25:00</div>
+                            <progress id="studyProgress" value="0" max="1500" aria-label="Focus session progress"></progress>
+                            <div class="study-actions">
+                                <button type="button" class="btn btn-primary" id="studyStart" disabled>Start focus</button>
+                                <button type="button" class="btn btn-secondary" id="studyReset" disabled>Reset</button>
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-primary focus-play" id="focusPlay" disabled>Play</button>
-                    </div>
-                    <p class="focus-status" id="focusStatus" role="status">Ready to play.</p>
-                    <p class="focus-hint">Keep the volume comfortable. Use stereo headphones for binaural beats. Sound stops when you leave this page.</p>
-                    <noscript>Enable JavaScript to use focus sounds.</noscript>
-                </div>
-            </section>
-
-            <section class="container section" aria-labelledby="formTitle">
-                <h2 id="formTitle">Add a task</h2>
-
-                <form id="taskForm" class="task-form" novalidate>
-                    <input type="hidden" id="taskId" name="taskId">
-
-                    <div class="form-group">
-                        <label for="title">Task title</label>
-                        <input type="text" id="title" name="title" placeholder="e.g. Finish Maths assignment 3" required minlength="3" maxlength="80">
-                        <span class="error" id="titleError" aria-live="polite"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" list="subjectOptions" placeholder="e.g. Maths" required maxlength="40">
-                        <datalist id="subjectOptions">
-                            <option value="Maths"></option>
-                            <option value="Physics"></option>
-                            <option value="Chemistry"></option>
-                            <option value="Programming"></option>
-                            <option value="English"></option>
-                        </datalist>
-                        <span class="error" id="subjectError" aria-live="polite"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="deadline">Deadline</label>
-                        <input type="date" id="deadline" name="deadline" required>
-                        <span class="error" id="deadlineError" aria-live="polite"></span>
-                    </div>
-
-                    <fieldset class="form-group">
-                        <legend>Priority</legend>
-                        <div class="radio-row">
-                            <label><input type="radio" name="priority" value="high"> High</label>
-                            <label><input type="radio" name="priority" value="medium" checked> Medium</label>
-                            <label><input type="radio" name="priority" value="low"> Low</label>
+                        <div class="timer-info">
+                            <label class="study-check"><input type="checkbox" id="studyGuard" checked> Pause when I leave this tab</label>
+                            <p class="study-muted">Tab switches during focus: <span id="studyDistractions">0</span></p>
+                            <p id="studyStatus" role="status" class="study-status">Ready to focus.</p>
                         </div>
-                        <span class="error" id="priorityError" aria-live="polite"></span>
-                    </fieldset>
-
-                    <div class="form-group">
-                        <label for="notes">Notes (optional)</label>
-                        <textarea id="notes" name="notes" rows="3" maxlength="200" placeholder="Chapters, links, reminders..."></textarea>
                     </div>
-
-                    <div class="form-actions">
-                        <button type="submit" class="btn btn-primary" id="saveBtn">Save task</button>
-                        <button type="button" class="btn btn-secondary" id="cancelEditBtn" hidden>Cancel edit</button>
+                    <div class="focus-player">
+                        <div class="focus-heading">
+                            <span class="focus-icon" aria-hidden="true">
+                                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                    <path d="M3 14v-3a9 9 0 0 1 18 0v3M3 13h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3zM21 13h-2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2z"/>
+                                </svg>
+                            </span>
+                            <div>
+                                <h3>Focus sounds</h3>
+                                <p id="focusDescription">Soft instrumental tones for a quiet study session.</p>
+                            </div>
+                        </div>
+                        <div class="focus-controls">
+                            <div>
+                                <label for="focusSound">Sound</label>
+                                <select id="focusSound" aria-describedby="focusDescription">
+                                    <option value="ambient">Ambient study music</option>
+                                    <option value="white">White noise</option>
+                                    <option value="pink">Pink noise</option>
+                                    <option value="brown">Brown noise</option>
+                                    <option value="alpha">Binaural beats - 10 Hz (Alpha)</option>
+                                    <option value="theta">Binaural beats - 6 Hz (Theta)</option>
+                                </select>
+                            </div>
+                            <div class="focus-volume">
+                                <label for="focusVolume">Volume <output id="focusVolumeValue" for="focusVolume">25%</output></label>
+                                <input type="range" id="focusVolume" min="0" max="100" value="25">
+                            </div>
+                            <button type="button" class="btn btn-primary focus-play" id="focusPlay" disabled>Play</button>
+                        </div>
+                        <p class="focus-status" id="focusStatus" role="status">Ready to play.</p>
+                        <p class="focus-hint">Use stereo headphones for binaural beats. Sound stops when you leave this page.</p>
+                        <noscript>Enable JavaScript to use focus sounds.</noscript>
                     </div>
-                </form>
-            </section>
-
-            <section class="container section" aria-labelledby="filterTitle">
-                <h2 id="filterTitle">Find tasks</h2>
-
-                <form id="filterForm" class="filter-form" role="search">
-                    <div class="form-group">
-                        <label for="searchInput">Search</label>
-                        <input type="search" id="searchInput" placeholder="Search by title">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="filterSubject">Subject</label>
-                        <select id="filterSubject">
-                            <option value="all">All subjects</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="filterPriority">Priority</label>
-                        <select id="filterPriority">
-                            <option value="all">All priorities</option>
-                            <option value="high">High</option>
-                            <option value="medium">Medium</option>
-                            <option value="low">Low</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="filterStatus">Status</label>
-                        <select id="filterStatus">
-                            <option value="all">All</option>
-                            <option value="pending">Pending</option>
-                            <option value="done">Completed</option>
-                            <option value="overdue">Overdue</option>
-                        </select>
-                    </div>
-
-                    <button type="reset" class="btn btn-secondary" id="clearFiltersBtn">Clear filters</button>
-                </form>
-            </section>
+                </section>
+            </div>
 
             <section class="container section weekly-plan" id="weeklyPlan" aria-labelledby="weekTitle">
-                <h2 id="weekTitle">Weekly plan</h2>
+                <div class="weekly-heading"><h2 id="weekTitle">Weekly plan</h2><a href="#plannerTitle">Back to tasks</a></div>
                 <div class="study-card week-card">
                     <div class="week-toolbar">
                         <div>
@@ -225,16 +243,6 @@
                     <p id="weekStatus" class="study-status week-export" role="status"></p>
                     <noscript>Enable JavaScript to generate your weekly plan.</noscript>
                 </div>
-            </section>
-
-            <section class="container section" aria-labelledby="listTitle">
-                <h2 id="listTitle">Your tasks</h2>
-                <p id="taskCount" class="task-count" aria-live="polite"></p>
-
-                <ul id="taskList" class="task-list">
-                </ul>
-
-                <p id="emptyMessage" class="empty-message">No tasks yet. Fill in the form above to add your first one.</p>
             </section>
 
         </main>
