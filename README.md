@@ -88,10 +88,10 @@ Optionally, run it with a local server such as the VS Code Live Server extension
 
 | Name | Role |
 |---|---|
-| Max | Add your role here |
-| Member 2 | Add your role here |
-| Member 3 | Add your role here |
-| Member 4 | Add your role here |
+| Manvendra Snehashish | Project Lead and Website Development |
+| Yogang Jain | Design Review and Responsive Layout Testing |
+| Ansh Kumar | Functionality Testing and Validation |
+| Kartikeye Hirwani | Documentation and Presentation |
 
 ## Acknowledgements
 
