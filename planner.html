@@ -41,11 +41,37 @@
 
             <section class="container section page-intro">
                 <h1>Study Planner</h1>
-                <p>Add a task, then filter and tick it off as you go. Everything is saved in your browser.</p>
+                <p>Plan your tasks, start a focus session and organise your week. Your tasks are saved in your browser.</p>
             </section>
 
             <section class="container section focus-section" aria-labelledby="focusTitle">
-                <h2 id="focusTitle">Focus sounds</h2>
+                <h2 id="focusTitle">Study environment</h2>
+                <div class="study-card timer-card">
+                    <div>
+                        <h3>Focus timer</h3>
+                        <p class="study-muted">Stay on this page during your focus session.</p>
+                        <label for="studyDuration">Session length</label>
+                        <select id="studyDuration">
+                            <option value="15">15 minutes</option>
+                            <option value="25" selected>25 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes</option>
+                        </select>
+                    </div>
+                    <div class="timer-main">
+                        <div id="studyTime" class="timer-display" role="timer" aria-label="Time remaining">25:00</div>
+                        <progress id="studyProgress" value="0" max="1500" aria-label="Focus session progress"></progress>
+                        <div class="study-actions">
+                            <button type="button" class="btn btn-primary" id="studyStart" disabled>Start focus</button>
+                            <button type="button" class="btn btn-secondary" id="studyReset" disabled>Reset</button>
+                        </div>
+                    </div>
+                    <div class="timer-info">
+                        <label class="study-check"><input type="checkbox" id="studyGuard" checked> Pause when I leave this tab</label>
+                        <p class="study-muted">Tab switches during focus: <span id="studyDistractions">0</span></p>
+                        <p id="studyStatus" role="status" class="study-status">Ready to focus.</p>
+                    </div>
+                </div>
                 <div class="focus-player">
                     <div class="focus-heading">
                         <span class="focus-icon" aria-hidden="true">
@@ -175,6 +201,32 @@
                 </form>
             </section>
 
+            <section class="container section weekly-plan" id="weeklyPlan" aria-labelledby="weekTitle">
+                <h2 id="weekTitle">Weekly plan</h2>
+                <div class="study-card week-card">
+                    <div class="week-toolbar">
+                        <div>
+                            <h3 id="weekRange">This week</h3>
+                            <p class="study-muted">Tasks grouped by deadline, Monday to Sunday.</p>
+                        </div>
+                        <div class="study-actions week-nav" aria-label="Choose week">
+                            <button type="button" class="btn btn-secondary" id="weekPrevious" aria-label="Previous week">Previous</button>
+                            <button type="button" class="btn btn-secondary" id="weekToday">This week</button>
+                            <button type="button" class="btn btn-secondary" id="weekNext" aria-label="Next week">Next</button>
+                        </div>
+                    </div>
+                    <p id="weekSummary" class="study-muted" role="status"></p>
+                    <div id="weekGrid" class="week-grid"></div>
+                    <div class="study-actions week-export">
+                        <button type="button" class="btn btn-primary" id="weekPrint" disabled>Print weekly plan</button>
+                        <button type="button" class="btn btn-secondary" id="weekExport" disabled>Export calendar (.ics)</button>
+                    </div>
+                    <p class="study-muted week-help">Calendar export includes this week's deadlines as all-day events. Import the downloaded file in your calendar app.</p>
+                    <p id="weekStatus" class="study-status week-export" role="status"></p>
+                    <noscript>Enable JavaScript to generate your weekly plan.</noscript>
+                </div>
+            </section>
+
             <section class="container section" aria-labelledby="listTitle">
                 <h2 id="listTitle">Your tasks</h2>
                 <p id="taskCount" class="task-count" aria-live="polite"></p>
@@ -199,6 +251,7 @@
         <script src="js/validate.js"></script>
         <script src="js/planner.js"></script>
         <script src="js/focus.js"></script>
+        <script src="js/study.js"></script>
 
     </body>
 </html>

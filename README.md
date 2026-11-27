@@ -18,6 +18,8 @@ Students manage assignments, labs and exams across many subjects, but their dead
 - **Deadline tracking:** overdue and due-soon tasks are highlighted automatically
 - **Dashboard:** totals, tasks due in 3 days, overdue count, progress bars per subject and the next deadlines
 - **Focus sounds:** ambient instrumental music, white/pink/brown noise and stereo binaural beats, generated in the browser with adjustable volume
+- **Focus timer:** 15, 25, 45 or 60 minute sessions; optional automatic pause on tab changes with a distraction count
+- **Weekly plan:** Monday–Sunday deadline view with a print-friendly layout and `.ics` calendar export
 - **Theme switch:** purple glass design with light and dark modes, saved in the browser
 - **Responsive design:** works from phone width upward, with a collapsible mobile menu
 - **Accessibility:** semantic HTML, skip link, labelled form fields, `aria-current` on the active page, keyboard focus styles
@@ -28,7 +30,7 @@ Students manage assignments, labs and exams across many subjects, but their dead
 | Page | Purpose |
 |---|---|
 | `index.html` | Home page with the dashboard |
-| `planner.html` | Add, edit, filter and complete tasks; play focus sounds |
+| `planner.html` | Add, edit, filter and complete tasks; focus timer, sounds and weekly plan |
 | `about.html` | Project description, team and contact form |
 
 ## Project structure
@@ -46,6 +48,7 @@ MaxTrack/
     nav.js           mobile menu toggle
     theme.js         light/dark mode and saved preference
     focus.js         generated audio, playback and volume controls
+    study.js         focus timer, weekly plan, printing and calendar export
     validate.js      form validation
     planner.js       task add, edit, delete, filter, render
     dashboard.js     stats, subject progress, upcoming deadlines
@@ -64,19 +67,21 @@ Optionally, run it with a local server such as the VS Code Live Server extension
 
 - **HTML5:** semantic elements and accessible forms
 - **CSS3:** custom properties, Flexbox, Grid and responsive media queries
-- **JavaScript (ES6):** DOM manipulation, event handling, validation, localStorage and Web Audio API
+- **JavaScript (ES6):** DOM manipulation, event handling, validation, localStorage, Web Audio API, Page Visibility API and Blob downloads
 
 ## Limitations
 
 - Data is stored only in the browser it was entered in. It is not shared between devices, and clearing the browser data removes it.
 - Focus sounds require a browser with Web Audio support. Playback stops when leaving the planner page.
+- The focus timer pauses when the page becomes hidden if the distraction guard is enabled. It cannot identify other websites or prevent tab switching. Sessions reset on reload.
+- Calendar export creates all-day deadline events for the selected week. Import the file manually; it does not sync calendar changes.
 - The contact form checks the input but does not send the message anywhere, because the project has no backend.
 
 ## Future scope
 
 - A backend and database so tasks sync across devices
 - Reminders and notifications for upcoming deadlines
-- A calendar view and charts
+- Timed study blocks and additional progress charts
 - User accounts and shared study groups
 
 ## Team
