@@ -1,11 +1,5 @@
-/* ==========================================================
-   planner.js - the task manager on planner.html
-   Add, edit, delete, complete, filter, search and render tasks.
-   Needs storage.js and validate.js loaded first.
-   ========================================================== */
-
 (function () {
-  /* ---------- Grab the elements once ---------- */
+
   const form = document.getElementById("taskForm");
   const formTitle = document.getElementById("formTitle");
   const taskIdInput = document.getElementById("taskId");
@@ -26,10 +20,7 @@
   const taskCount = document.getElementById("taskCount");
   const emptyMessage = document.getElementById("emptyMessage");
 
-  // Stop if this is not the planner page
   if (!form || !taskList) return;
-
-  /* ---------- Filtering and sorting ---------- */
 
   function matchesFilters(task) {
     const query = searchInput.value.trim().toLowerCase();
@@ -49,16 +40,14 @@
     return true;
   }
 
-  // Pending tasks first, then earliest deadline first
   function compareTasks(a, b) {
     if (a.done !== b.done) return a.done ? 1 : -1;
     return a.deadline.localeCompare(b.deadline);
   }
 
-  // Rebuild the subject dropdown from the subjects that exist in saved tasks
   function refreshSubjectFilter(tasks) {
     const previous = filterSubject.value;
-    const subjects = new Map(); // lowercase -> original spelling
+    const subjects = new Map();
 
     tasks.forEach(function (task) {
       const key = task.subject.toLowerCase();
@@ -77,9 +66,6 @@
     filterSubject.value = subjects.has(previous) ? previous : "all";
   }
 
-  /* ---------- Building one task card (DOM manipulation) ---------- */
-
-  // Small helper: make an element with a class and text
   function makeEl(tag, className, text) {
     const el = document.createElement(tag);
     if (className) el.className = className;
@@ -103,7 +89,6 @@
     if (overdue) item.classList.add("overdue");
     item.dataset.id = task.id;
 
-    // Left side: title, details, notes
     const main = makeEl("div", "task-main");
     main.appendChild(makeEl("h3", "task-title", task.title));
 
@@ -118,7 +103,6 @@
 
     if (task.notes) main.appendChild(makeEl("p", "task-notes", task.notes));
 
-    // Right side: action buttons
     const actions = makeEl("div", "task-actions");
     actions.appendChild(makeButton(task.done ? "Undo" : "Complete", "toggle", "", task.title));
     actions.appendChild(makeButton("Edit", "edit", "", task.title));
@@ -128,8 +112,6 @@
     item.appendChild(actions);
     return item;
   }
-
-  /* ---------- Render the whole list ---------- */
 
   function render() {
     const allTasks = TaskStore.getAll();
@@ -155,8 +137,6 @@
     emptyMessage.hidden = visible.length > 0;
   }
 
-  /* ---------- Add / edit mode ---------- */
-
   function enterEditMode(task) {
     taskIdInput.value = task.id;
     titleInput.value = task.title;
@@ -177,7 +157,7 @@
   }
 
   function exitEditMode() {
-    form.reset(); // also puts Medium back as the default priority
+    form.reset();
     taskIdInput.value = "";
     formTitle.textContent = "Add a task";
     saveBtn.textContent = "Save task";
@@ -185,9 +165,6 @@
     clearTaskFormErrors();
   }
 
-  /* ---------- Events ---------- */
-
-  // Submit the task form: validate, then add or update
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -206,7 +183,7 @@
 
   cancelEditBtn.addEventListener("click", exitEditMode);
 
-  // One listener on the list handles every button (event delegation)
+  // Handle buttons on dynamically added task cards.
   taskList.addEventListener("click", function (event) {
     const button = event.target.closest("button[data-action]");
     if (!button) return;
@@ -230,17 +207,15 @@
     }
   });
 
-  // Filters: re-render whenever any filter changes
   filterForm.addEventListener("input", render);
   filterForm.addEventListener("change", render);
   filterForm.addEventListener("submit", function (event) {
-    event.preventDefault(); // Enter in the search box must not reload the page
+    event.preventDefault();
   });
-  // Reset fires before the fields clear, so wait one tick
+  // Render after the browser finishes resetting the filters.
   filterForm.addEventListener("reset", function () {
     setTimeout(render, 0);
   });
 
-  /* ---------- Start ---------- */
   render();
 })();

@@ -1,12 +1,3 @@
-/* ==========================================================
-   validate.js - form validation for the task form (planner.html)
-   and the contact form (about.html).
-   Our HTML forms use novalidate, so we show our own messages.
-   ========================================================== */
-
-/* ---------- Small helpers ---------- */
-
-// Show (or clear) an error message and mark the field valid/invalid
 function setFieldError(input, errorId, message) {
   const errorEl = document.getElementById(errorId);
   if (errorEl) errorEl.textContent = message;
@@ -18,7 +9,6 @@ function setFieldError(input, errorId, message) {
   }
 }
 
-// Remove all validation styling from a field
 function resetField(input, errorId) {
   const errorEl = document.getElementById(errorId);
   if (errorEl) errorEl.textContent = "";
@@ -28,7 +18,6 @@ function resetField(input, errorId) {
   }
 }
 
-// Validate a field when the user leaves it, and re-check as they fix it
 function attachLiveValidation(input, checkFn, errorId) {
   if (!input) return;
   input.addEventListener("blur", function () {
@@ -41,14 +30,11 @@ function attachLiveValidation(input, checkFn, errorId) {
   });
 }
 
-/* ---------- Rules: each returns an error message, or "" if OK ---------- */
-
 function checkTitle(value) {
   const text = value.trim();
   if (!text) return "Please enter a task title.";
   if (text.length < 3) return "Title must be at least 3 characters.";
   if (text.length > 80) return "Title must be 80 characters or fewer.";
-  // Numbers are fine ("Assignment 3"), but not a title made only of digits
   if (!/\p{L}/u.test(text)) return "Title must include at least one letter.";
   return "";
 }
@@ -57,7 +43,6 @@ function checkSubject(value) {
   const text = value.trim();
   if (!text) return "Please enter a subject.";
   if (text.length > 40) return "Subject must be 40 characters or fewer.";
-  // Digits are allowed ("CS50", "Maths 2"), but not a subject that is only numbers
   if (!/\p{L}/u.test(text)) return "Subject must include at least one letter, not only numbers.";
   return "";
 }
@@ -72,8 +57,7 @@ function checkDeadline(value) {
   return "";
 }
 
-// Letters from any language, plus spaces, apostrophes, hyphens and dots
-// (so "Mary-Anne O'Neil", "Dr. Rao" and "José" are accepted)
+// Allow Unicode letters and common name punctuation.
 const NAME_BAD_CHARS = /[^\p{L}\s'.\-]/u;
 
 function checkName(value) {
@@ -92,7 +76,6 @@ function checkName(value) {
 function checkEmail(value) {
   const text = value.trim();
   if (!text) return "Please enter your email.";
-  // Simple pattern: something@something.something, no spaces
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(text)) {
     return "Please enter a valid email, like you@example.com.";
   }
@@ -111,9 +94,6 @@ function checkMessage(value) {
   return "";
 }
 
-/* ---------- Task form (used by planner.js) ---------- */
-
-// Checks every field. Returns { valid: true/false, data: {...} }
 function validateTaskForm() {
   const title = document.getElementById("title");
   const subject = document.getElementById("subject");
@@ -133,7 +113,6 @@ function validateTaskForm() {
   setFieldError(deadline, "deadlineError", errors.deadline);
   setFieldError(null, "priorityError", errors.priority);
 
-  // Put the cursor in the first field that has a problem
   if (errors.title) title.focus();
   else if (errors.subject) subject.focus();
   else if (errors.deadline) deadline.focus();
@@ -154,7 +133,6 @@ function validateTaskForm() {
   };
 }
 
-// Clear every message and style on the task form
 function clearTaskFormErrors() {
   resetField(document.getElementById("title"), "titleError");
   resetField(document.getElementById("subject"), "subjectError");
@@ -162,10 +140,7 @@ function clearTaskFormErrors() {
   resetField(null, "priorityError");
 }
 
-/* ---------- Wire up whichever form this page has ---------- */
-
 (function () {
-  // Task form (planner.html): live checks while typing
   if (document.getElementById("taskForm")) {
     attachLiveValidation(document.getElementById("title"), checkTitle, "titleError");
     attachLiveValidation(document.getElementById("subject"), checkSubject, "subjectError");
@@ -178,7 +153,6 @@ function clearTaskFormErrors() {
     });
   }
 
-  // Contact form (about.html)
   const contactForm = document.getElementById("contactForm");
   if (!contactForm) return;
 
@@ -193,13 +167,11 @@ function clearTaskFormErrors() {
   fields.forEach(function (field) {
     attachLiveValidation(field.el, field.check, field.error);
   });
-  // Name field: show the error immediately when a number or symbol is typed
   fields[0].el.addEventListener("input", function () {
     if (NAME_BAD_CHARS.test(fields[0].el.value)) {
       setFieldError(fields[0].el, fields[0].error, checkName(fields[0].el.value));
     }
   });
-  // Dropdowns fire "change" rather than "input" in some browsers
   fields[2].el.addEventListener("change", function () {
     setFieldError(fields[2].el, fields[2].error, checkTopic(fields[2].el.value));
   });
@@ -220,7 +192,7 @@ function clearTaskFormErrors() {
       return;
     }
 
-    // There is no server, so we only confirm that the input was valid
+    // No backend: this only confirms valid input.
     contactForm.reset();
     fields.forEach(function (field) {
       resetField(field.el, field.error);

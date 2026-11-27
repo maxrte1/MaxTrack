@@ -17,6 +17,8 @@ Students manage assignments, labs and exams across many subjects, but their dead
 - **Filter and search:** by subject, priority and status (pending, completed, overdue), plus a title search
 - **Deadline tracking:** overdue and due-soon tasks are highlighted automatically
 - **Dashboard:** totals, tasks due in 3 days, overdue count, progress bars per subject and the next deadlines
+- **Focus sounds:** ambient instrumental music, white/pink/brown noise and stereo binaural beats, generated in the browser with adjustable volume
+- **Theme switch:** purple glass design with light and dark modes, saved in the browser
 - **Responsive design:** works from phone width upward, with a collapsible mobile menu
 - **Accessibility:** semantic HTML, skip link, labelled form fields, `aria-current` on the active page, keyboard focus styles
 - **Saved in the browser:** tasks persist with localStorage, no account needed
@@ -26,7 +28,7 @@ Students manage assignments, labs and exams across many subjects, but their dead
 | Page | Purpose |
 |---|---|
 | `index.html` | Home page with the dashboard |
-| `planner.html` | Add, edit, filter and complete tasks |
+| `planner.html` | Add, edit, filter and complete tasks; play focus sounds |
 | `about.html` | Project description, team and contact form |
 
 ## Project structure
@@ -42,6 +44,8 @@ MaxTrack/
   js/
     storage.js       saves and loads tasks, date helpers
     nav.js           mobile menu toggle
+    theme.js         light/dark mode and saved preference
+    focus.js         generated audio, playback and volume controls
     validate.js      form validation
     planner.js       task add, edit, delete, filter, render
     dashboard.js     stats, subject progress, upcoming deadlines
@@ -60,11 +64,12 @@ Optionally, run it with a local server such as the VS Code Live Server extension
 
 - **HTML5:** semantic elements and accessible forms
 - **CSS3:** custom properties, Flexbox, Grid and responsive media queries
-- **JavaScript (ES6):** DOM manipulation, event handling, validation and localStorage
+- **JavaScript (ES6):** DOM manipulation, event handling, validation, localStorage and Web Audio API
 
 ## Limitations
 
 - Data is stored only in the browser it was entered in. It is not shared between devices, and clearing the browser data removes it.
+- Focus sounds require a browser with Web Audio support. Playback stops when leaving the planner page.
 - The contact form checks the input but does not send the message anywhere, because the project has no backend.
 
 ## Future scope

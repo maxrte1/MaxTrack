@@ -7,16 +7,25 @@
         <title>
             MaxTrack | Home
         </title>
+        <script src="js/theme.js"></script>
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <a class="skip-link" href="#main">Skip to main content</a>
 
-        <!-- Header Decor and Navigation -->
         <header class="site-header">
             <div class="container header-inner">
                 <a class="logo" href="index.html">MaxTrack</a>
 
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" hidden>
+                    <svg class="theme-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M20.9 13.35A9 9 0 0 1 10.65 3.1 9 9 0 1 0 20.9 13.35Z"/>
+                    </svg>
+                    <svg class="theme-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42m0-14.14-1.42 1.42m-11.3 11.3-1.42 1.42"/>
+                    </svg>
+                </button>
                 <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">
                     Menu
                 </button>
@@ -32,7 +41,6 @@
         
         <main id="main">
 
-            <!-- Hero -->
             <section class="hero">
                 <div class="container hero-inner">
                     <h1>Know what is due before it's late</h1>
@@ -44,7 +52,6 @@
                 </div>
             </section>
 
-            <!-- Dashboard -->
             <section id="dashboard" class="container section" aria-labelledby="dashboardTitle">
                 <h2 id="dashboardTitle">Your dashboard</h2>
 
@@ -68,7 +75,6 @@
                 </div>
             </section>
 
-            <!-- Progress Per Subject -->
             <section class="container section" aria-labelledby="progressTitle">
                 <h2 id="progressTitle">Progress by subject</h2>
                 <div id="subjectProgress" class="progress-list">
@@ -76,7 +82,6 @@
                 </div>
             </section>
 
-            <!-- Upcoming Deadlines -->
             <section class="container section" aria-labelledby="upcomingTitle">
                 <h2 id="upcomingTitle">Upcoming deadlines</h2>
                 <ul id="upcomingList" class="upcoming-list">
@@ -84,7 +89,6 @@
                 </ul>
             </section>
 
-            <!-- How it works -->
             <section class="container section" aria-labelledby="howTitle">
                 <h2 id="howTitle">How does it work?</h2>
                 <ol class="steps">
@@ -96,7 +100,6 @@
 
         </main>
 
-        <!--Footer-->
         <footer class="site-footer">
             <div class="container footer-inner">
                 <p>&copy; 2026 MaxTrack. Web-Dev Mini Project, Bennett University.</p>

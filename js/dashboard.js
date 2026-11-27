@@ -1,9 +1,3 @@
-/* ==========================================================
-   dashboard.js - fills the dashboard on index.html
-   Stat cards, progress by subject, upcoming deadlines.
-   Needs storage.js loaded first.
-   ========================================================== */
-
 (function () {
   const statTotal = document.getElementById("statTotal");
   const statDone = document.getElementById("statDone");
@@ -12,7 +6,6 @@
   const subjectProgress = document.getElementById("subjectProgress");
   const upcomingList = document.getElementById("upcomingList");
 
-  // Stop if this is not the home page
   if (!statTotal) return;
 
   function makeEl(tag, className, text) {
@@ -22,12 +15,10 @@
     return el;
   }
 
-  /* ---------- 1. The four number cards ---------- */
   function showStats(tasks) {
     const total = tasks.length;
     const done = tasks.filter(function (t) { return t.done; }).length;
 
-    // Not finished, and due today or within the next 3 days
     const soon = tasks.filter(function (t) {
       const days = daysUntil(t.deadline);
       return !t.done && days >= 0 && days <= 3;
@@ -40,16 +31,14 @@
     statSoon.textContent = soon;
     statDue.textContent = overdue;
 
-    // Turn the Overdue card red when something is late
     const card = statDue.closest(".stat-card");
     if (card) card.classList.toggle("has-overdue", overdue > 0);
   }
 
-  /* ---------- 2. One progress bar per subject ---------- */
   function showSubjectProgress(tasks) {
-    if (tasks.length === 0) return; // keep the "No tasks yet" message
+    if (tasks.length === 0) return;
 
-    // Group tasks by subject (ignoring upper/lower case)
+    // Treat different capitalizations as the same subject.
     const groups = new Map();
     tasks.forEach(function (task) {
       const key = task.subject.toLowerCase();
@@ -93,7 +82,6 @@
       });
   }
 
-  /* ---------- 3. The next few deadlines ---------- */
   function showUpcoming(tasks) {
     const pending = tasks
       .filter(function (t) { return !t.done; })
@@ -121,7 +109,6 @@
     });
   }
 
-  /* ---------- Start ---------- */
   const tasks = TaskStore.getAll();
   showStats(tasks);
   showSubjectProgress(tasks);

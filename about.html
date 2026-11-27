@@ -5,16 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="About MaxTrack: the problem it solves, its features, the team behind it and a contact form.">
         <title>MaxTrack | About</title>
+        <script src="js/theme.js"></script>
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <a class="skip-link" href="#main">Skip to main content</a>
 
-        <!-- Header and Navigation -->
         <header class="site-header">
             <div class="container header-inner">
                 <a class="logo" href="index.html">MaxTrack</a>
 
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" hidden>
+                    <svg class="theme-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M20.9 13.35A9 9 0 0 1 10.65 3.1 9 9 0 1 0 20.9 13.35Z"/>
+                    </svg>
+                    <svg class="theme-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42m0-14.14-1.42 1.42m-11.3 11.3-1.42 1.42"/>
+                    </svg>
+                </button>
                 <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">
                     Menu
                 </button>
@@ -30,19 +39,16 @@
 
         <main id="main">
 
-            <!-- Page title -->
             <section class="container section page-intro">
                 <h1>About MaxTrack</h1>
                 <p>A simple, browser-based study planner built for students who juggle several subjects and deadlines.</p>
             </section>
 
-            <!-- The problem -->
             <section class="container section" aria-labelledby="problemTitle">
                 <h2 id="problemTitle">The problem we are solving</h2>
                 <p>Students manage assignments, labs and exams across many subjects, but their deadlines are usually scattered across notes, chat groups and memory. This leads to missed deadlines and poor prioritisation. MaxTrack gives them one place to organise tasks by subject and priority, spot overdue work and see their progress.</p>
             </section>
 
-            <!-- Features -->
             <section class="container section" aria-labelledby="featuresTitle">
                 <h2 id="featuresTitle">What MaxTrack does</h2>
                 <div class="feature-grid">
@@ -65,7 +71,6 @@
                 </div>
             </section>
 
-            <!-- Technologies -->
             <section class="container section" aria-labelledby="techTitle">
                 <h2 id="techTitle">Built with</h2>
                 <ul class="tech-list">
@@ -76,7 +81,6 @@
                 <p class="note">Your tasks are saved only in your own browser. Clearing the browser data removes them.</p>
             </section>
 
-            <!-- Team -->
             <section class="container section" aria-labelledby="teamTitle">
                 <h2 id="teamTitle">The team</h2>
                 <div class="team-grid">
@@ -103,7 +107,6 @@
                 </div>
             </section>
 
-            <!-- Contact Form -->
             <section class="container section" aria-labelledby="contactTitle">
                 <h2 id="contactTitle">Contact us</h2>
                 <p>Found a bug or have a suggestion? Send us a message.</p>
@@ -148,7 +151,6 @@
 
         </main>
 
-        <!-- Footer -->
         <footer class="site-footer">
             <div class="container footer-inner">
                 <p>&copy; 2026 MaxTrack. Web-Dev Mini Project, Bennett University.</p>

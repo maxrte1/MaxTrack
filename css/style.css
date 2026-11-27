@@ -1,68 +1,41 @@
-
-/* ==========================================================
-   MaxTrack — Modern Glassmorphism UI
-   Design: Premium Purple Glass
-   Themes: Light + Dark
-   Sections:
-   1. Variables | 2. Base | 3. Layout
-   4. Header/Nav | 5. Hero + Buttons
-   6. Dashboard | 7. Forms | 8. Task List
-   9. About Cards | 10. Footer | 11. Responsive
-   ========================================================== */
-
-
-/* ---------- 1. VARIABLES ---------- */
-
 :root {
   color-scheme: light;
-
   --ink: #21183B;
   --ink-line: rgba(91, 69, 145, 0.22);
-
   --teal: #7955D9;
+  --on-accent: #FFFFFF;
+  --on-danger: #FFFFFF;
   --teal-dark: #5935B5;
   --teal-mid: #AD96F1;
-
   --amber: #B99AFF;
   --amber-dark: #A17BEF;
   --coral: #E66B88;
-
   --bg: #F5F2FC;
   --surface: rgba(255, 255, 255, 0.68);
   --surface-solid: #FFFFFF;
   --surface-hover: rgba(255, 255, 255, 0.88);
-
   --text: #241D38;
   --muted: #766D89;
   --border: rgba(105, 79, 160, 0.16);
   --link: #7046CE;
-
   --on-ink: #F7F3FF;
   --on-ink-muted: #C7BBDD;
-
-  --danger: #D83D58;
-  --warning: #A56A12;
-  --success: #24865A;
-
+  --danger: #B92C47;
+  --warning: #86530B;
+  --success: #196C47;
   --glass-blur: 18px;
   --radius: 20px;
   --radius-sm: 12px;
-
   --shadow-sm:
     0 2px 8px rgba(54, 35, 95, 0.045);
-
   --shadow:
     0 8px 28px rgba(54, 35, 95, 0.075);
-
   --shadow-lg:
     0 16px 45px rgba(54, 35, 95, 0.13);
-
   --glass-border:
     1px solid rgba(255, 255, 255, 0.75);
-
   --gradient:
     linear-gradient(135deg, #7955D9, #5935B5);
-
   --ambient:
     radial-gradient(
       ellipse at 10% 10%,
@@ -76,53 +49,40 @@
     );
 }
 
-
-/* ---------- DARK THEME ---------- */
-
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     color-scheme: dark;
-
     --ink: #110D1E;
     --ink-line: rgba(185, 154, 255, 0.16);
-
     --teal: #A78BFA;
+    --on-accent: #21183B;
+    --on-danger: #211019;
     --teal-dark: #8056DC;
     --teal-mid: #C3AEFF;
-
     --amber: #C2A6FF;
     --amber-dark: #A88AF0;
     --coral: #F17D96;
-
     --bg: #100D19;
     --surface: rgba(35, 27, 53, 0.68);
     --surface-solid: #241C35;
     --surface-hover: rgba(51, 39, 76, 0.88);
-
     --text: #F0EAFB;
     --muted: #B2A6C8;
     --border: rgba(192, 169, 255, 0.15);
     --link: #C0A5FF;
-
     --on-ink: #F6F1FF;
     --on-ink-muted: #B8AACD;
-
     --danger: #FF8298;
     --warning: #E8B45C;
     --success: #70D6A2;
-
     --glass-border:
       1px solid rgba(255, 255, 255, 0.09);
-
     --shadow-sm:
       0 2px 10px rgba(0, 0, 0, 0.14);
-
     --shadow:
       0 8px 28px rgba(0, 0, 0, 0.22);
-
     --shadow-lg:
       0 16px 45px rgba(0, 0, 0, 0.32);
-
     --ambient:
       radial-gradient(
         ellipse at 10% 10%,
@@ -137,51 +97,40 @@
   }
 }
 
-
-/* Explicit theme overrides */
-
 :root[data-theme="light"] {
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-
   --ink: #110D1E;
   --ink-line: rgba(185, 154, 255, 0.16);
-
   --teal: #A78BFA;
+  --on-accent: #21183B;
+  --on-danger: #211019;
   --teal-dark: #8056DC;
   --teal-mid: #C3AEFF;
-
   --amber: #C2A6FF;
   --amber-dark: #A88AF0;
   --coral: #F17D96;
-
   --bg: #100D19;
   --surface: rgba(35, 27, 53, 0.68);
   --surface-solid: #241C35;
   --surface-hover: rgba(51, 39, 76, 0.88);
-
   --text: #F0EAFB;
   --muted: #B2A6C8;
   --border: rgba(192, 169, 255, 0.15);
   --link: #C0A5FF;
-
   --on-ink: #F6F1FF;
   --on-ink-muted: #B8AACD;
-
   --danger: #FF8298;
   --warning: #E8B45C;
   --success: #70D6A2;
-
   --glass-border:
     1px solid rgba(255, 255, 255, 0.09);
-
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.14);
   --shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
   --shadow-lg: 0 16px 45px rgba(0, 0, 0, 0.32);
-
   --ambient:
     radial-gradient(
       ellipse at 10% 10%,
@@ -194,9 +143,6 @@
       transparent 40%
     );
 }
-
-
-/* ---------- 2. BASE ---------- */
 
 *,
 *::before,
@@ -212,7 +158,6 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-
   font-family:
     "Inter",
     "Segoe UI",
@@ -221,22 +166,17 @@ body {
     Roboto,
     Arial,
     sans-serif;
-
   line-height: 1.65;
   color: var(--text);
-
   background-color: var(--bg);
   background-image: var(--ambient);
-
   background-attachment: fixed;
-
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
 }
 
-/* Hidden elements must remain hidden */
-
+/* Keep hidden form messages and controls out of the layout. */
 [hidden] {
   display: none !important;
 }
@@ -271,18 +211,13 @@ img {
 
 ::selection {
   background: var(--teal);
-  color: #fff;
+  color: var(--on-accent);
 }
-
-/* Keyboard accessibility */
 
 :focus-visible {
   outline: 3px solid var(--link);
   outline-offset: 4px;
 }
-
-
-/* ---------- 3. LAYOUT HELPERS ---------- */
 
 .container {
   width: 100%;
@@ -299,23 +234,17 @@ main h2 {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-
   font-size: clamp(1.4rem, 3vw, 1.8rem);
   font-weight: 750;
-
   margin-bottom: 1.5rem;
 }
 
 main h2::before {
   content: "";
-
   flex: 0 0 auto;
-
   width: 5px;
   height: 1.2em;
-
   border-radius: 99px;
-
   background: var(--teal);
   box-shadow: 0 0 14px rgba(121, 85, 217, 0.35);
 }
@@ -327,13 +256,10 @@ main h2::before {
 .progress-list .empty-message,
 #emptyMessage {
   padding: 2rem;
-
   text-align: center;
-
   background: var(--surface);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-
   border: 1px dashed var(--border);
   border-radius: var(--radius);
 }
@@ -341,31 +267,21 @@ main h2::before {
 .note {
   color: var(--muted);
   font-size: 0.95rem;
-
   padding: 0.85rem 1rem;
-
   border-left: 3px solid var(--teal);
   background: rgba(121, 85, 217, 0.055);
-
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
-
-/* Page intro */
 
 .page-intro {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-
   width: min(1160px, calc(100% - 3rem));
-
   margin: 2rem auto 0;
   padding: 3rem 2.5rem;
-
   border-radius: 26px;
-
   color: #fff;
-
   background:
     radial-gradient(
       circle at 90% 10%,
@@ -373,59 +289,43 @@ main h2::before {
       transparent 35%
     ),
     linear-gradient(125deg, #7955D9, #40277E);
-
   border: 1px solid rgba(255, 255, 255, 0.2);
-
   box-shadow: 0 18px 50px rgba(77, 44, 145, 0.2);
 }
 
 .page-intro::after {
   content: "";
-
   position: absolute;
   z-index: -1;
-
   width: 280px;
   height: 280px;
-
   right: -80px;
   bottom: -160px;
-
   border-radius: 50%;
-
   border: 35px solid rgba(255, 255, 255, 0.09);
 }
 
 .page-intro h1 {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
-
   margin-bottom: 0.65rem;
 }
 
 .page-intro p {
   margin: 0;
   max-width: 60ch;
-
   color: rgba(255, 255, 255, 0.85);
 }
 
-/* Skip navigation */
-
 .skip-link {
   position: absolute;
-
   top: -100px;
   left: 1rem;
-
   z-index: 100;
-
   background: var(--teal);
-  color: #fff;
-
+  color: var(--on-accent);
   padding: 0.65rem 1.2rem;
   border-radius: 0 0 var(--radius-sm) var(--radius-sm);
-
   font-weight: 700;
 }
 
@@ -438,21 +338,14 @@ main h2::before {
   outline-color: var(--amber);
 }
 
-
-/* ---------- 4. HEADER + NAVIGATION ---------- */
-
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
-
   background: rgba(28, 19, 48, 0.88);
-
   border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-
   box-shadow: 0 5px 25px rgba(20, 10, 40, 0.12);
 }
 
@@ -460,7 +353,7 @@ main h2::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  gap: 0.75rem;
   padding-block: 0.9rem;
 }
 
@@ -468,25 +361,20 @@ main h2::before {
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-
   font-size: 1.5rem;
   font-weight: 850;
   letter-spacing: -0.05em;
-
   text-decoration: none;
   color: #fff;
+  margin-right: auto;
 }
 
 .logo::before {
   content: "";
-
   width: 0.65em;
   height: 0.65em;
-
   border-radius: 50%;
-
   background: #B99AFF;
-
   box-shadow:
     0 0 0 5px rgba(185, 154, 255, 0.13),
     0 0 20px rgba(185, 154, 255, 0.55);
@@ -496,7 +384,6 @@ main h2::before {
   display: flex;
   align-items: center;
   gap: 0.45rem;
-
   list-style: none;
   margin: 0;
   padding: 0;
@@ -504,18 +391,12 @@ main h2::before {
 
 .site-nav a {
   display: inline-block;
-
   padding: 0.55rem 1.1rem;
-
   border-radius: 999px;
-
   text-decoration: none;
-
   color: rgba(255, 255, 255, 0.78);
-
   font-size: 0.94rem;
   font-weight: 550;
-
   transition:
     background 0.2s ease,
     color 0.2s ease,
@@ -530,41 +411,61 @@ main h2::before {
 .site-nav a[aria-current="page"] {
   color: #fff;
   font-weight: 750;
-
   background: rgba(185, 154, 255, 0.2);
-
   box-shadow: inset 0 0 0 1px rgba(185, 154, 255, 0.2);
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  color: #F7F3FF;
+  background: rgba(185, 154, 255, 0.12);
+  border: 1px solid rgba(185, 154, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(185, 154, 255, 0.28);
+}
+
+.theme-sun,
+:root[data-theme="dark"] .theme-moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-sun {
+  display: block;
+}
+
+.hero :focus-visible,
+.page-intro :focus-visible {
+  outline-color: #fff;
 }
 
 .nav-toggle {
   display: none;
-
   background: #B99AFF;
   color: #21183B;
-
   border: 0;
   border-radius: 999px;
-
   padding: 0.55rem 1.2rem;
-
   font: inherit;
   font-weight: 750;
-
   cursor: pointer;
 }
-
-
-/* ---------- 5. HERO + BUTTONS ---------- */
 
 .hero {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-
   color: #fff;
-
   padding-block: 6rem 6.5rem;
-
   background:
     radial-gradient(
       circle at 85% 15%,
@@ -581,19 +482,14 @@ main h2::before {
 
 .hero::after {
   content: "";
-
   position: absolute;
   z-index: -1;
-
   right: -100px;
   bottom: -180px;
-
   width: 450px;
   height: 450px;
-
   border-radius: 50%;
   border: 55px solid rgba(255, 255, 255, 0.07);
-
   pointer-events: none;
 }
 
@@ -604,19 +500,15 @@ main h2::before {
 
 .hero h1 {
   max-width: 17ch;
-
   font-size: clamp(2.5rem, 6vw, 4.3rem);
   font-weight: 850;
   letter-spacing: -0.055em;
-
   line-height: 1.08;
-
   margin-bottom: 1.3rem;
 }
 
 .hero p {
   max-width: 56ch;
-
   font-size: 1.15rem;
   color: rgba(255, 255, 255, 0.83);
 }
@@ -625,24 +517,18 @@ main h2::before {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
-
   margin-top: 2rem;
 }
 
 .btn {
   display: inline-block;
-
   padding: 0.8rem 1.6rem;
-
   border-radius: 12px;
   border: 1px solid transparent;
-
   font: inherit;
   font-weight: 750;
-
   text-decoration: none;
   cursor: pointer;
-
   transition:
     transform 0.2s ease,
     background 0.2s ease,
@@ -662,7 +548,6 @@ main h2::before {
 .btn-primary {
   background: #C4A9FF;
   color: #25183F;
-
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
 }
 
@@ -673,7 +558,6 @@ main h2::before {
 .btn-secondary {
   background: var(--surface);
   color: var(--link);
-
   border-color: var(--border);
 }
 
@@ -684,9 +568,7 @@ main h2::before {
 .hero .btn-secondary {
   color: #fff;
   background: rgba(255, 255, 255, 0.08);
-
   border-color: rgba(255, 255, 255, 0.4);
-
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -703,34 +585,23 @@ main h2::before {
   transform: none;
 }
 
-
-/* ---------- 6. DASHBOARD ---------- */
-
 .stats-grid {
   display: grid;
-
   grid-template-columns:
     repeat(auto-fit, minmax(210px, 1fr));
-
   gap: 1.25rem;
 }
 
 .stat-card {
   position: relative;
   overflow: hidden;
-
   background: var(--surface);
-
   border: var(--glass-border);
   border-radius: var(--radius);
-
   padding: 1.6rem;
-
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-
   box-shadow: var(--shadow-sm);
-
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -739,15 +610,11 @@ main h2::before {
 
 .stat-card::before {
   content: "";
-
   position: absolute;
-
   left: 0;
   top: 0;
-
   width: 100%;
   height: 4px;
-
   background: var(--teal);
 }
 
@@ -772,10 +639,8 @@ main h2::before {
 .stat-card h3 {
   font-size: 0.82rem;
   font-weight: 750;
-
   text-transform: uppercase;
   letter-spacing: 0.09em;
-
   color: var(--muted);
 }
 
@@ -783,9 +648,7 @@ main h2::before {
   font-size: 3.2rem;
   font-weight: 850;
   line-height: 1;
-
   margin: 0.75rem 0 0;
-
   color: var(--teal);
   letter-spacing: -0.06em;
 }
@@ -793,8 +656,6 @@ main h2::before {
 .stat-card.has-overdue .stat-number {
   color: var(--danger);
 }
-
-/* Progress */
 
 .progress-list {
   display: flex;
@@ -804,17 +665,12 @@ main h2::before {
 
 .progress-row {
   background: var(--surface);
-
   border: var(--glass-border);
   border-radius: var(--radius);
-
   padding: 1.25rem 1.5rem;
-
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-
   box-shadow: var(--shadow-sm);
-
   transition: box-shadow 0.2s ease;
 }
 
@@ -826,11 +682,8 @@ main h2::before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   gap: 1rem;
-
   margin-bottom: 0.85rem;
-
   font-weight: 750;
 }
 
@@ -842,30 +695,22 @@ main h2::before {
 
 .progress-track {
   height: 11px;
-
   background: var(--border);
   border-radius: 999px;
-
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
   width: 0;
-
   background: linear-gradient(90deg, #8056DC, #B99AFF);
-
   border-radius: 999px;
-
   transition: width 0.5s ease;
 }
-
-/* Upcoming deadlines */
 
 .upcoming-list {
   list-style: none;
   padding: 0;
-
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -873,19 +718,13 @@ main h2::before {
 
 .upcoming-list li {
   background: var(--surface);
-
   border: 1px solid var(--border);
   border-left: 4px solid var(--teal);
-
   border-radius: var(--radius-sm);
-
   padding: 1rem 1.3rem;
-
   box-shadow: var(--shadow-sm);
-
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -899,7 +738,6 @@ main h2::before {
 .upcoming-list li.empty-message {
   border-left-color: var(--border);
   background: var(--surface);
-
   box-shadow: none;
 }
 
@@ -907,78 +745,52 @@ main h2::before {
   transform: none;
 }
 
-/* How it works */
-
 .steps {
   list-style: none;
   padding: 0;
-
   counter-reset: step;
-
   display: grid;
   gap: 1rem;
 }
 
 .steps li {
   counter-increment: step;
-
   position: relative;
   min-height: 4rem;
-
   background: var(--surface);
-
   border: var(--glass-border);
   border-radius: var(--radius);
-
   padding: 1.1rem 1.3rem 1.1rem 4.5rem;
-
   box-shadow: var(--shadow-sm);
-
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 .steps li::before {
   content: counter(step);
-
   position: absolute;
-
   left: 1.2rem;
   top: 50%;
-
   transform: translateY(-50%);
-
   width: 2.3rem;
   height: 2.3rem;
-
   display: grid;
   place-items: center;
-
   border-radius: 50%;
-
   background: var(--teal);
-  color: #fff;
-
+  color: var(--on-accent);
   font-weight: 850;
-
   box-shadow: 0 4px 12px rgba(121, 85, 217, 0.25);
 }
-
-
-/* ---------- 7. FORMS ---------- */
 
 .task-form,
 .filter-form {
   background: var(--surface);
-
   border: var(--glass-border);
   border-radius: var(--radius);
-
   padding: 1.75rem;
-
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-
   box-shadow: var(--shadow);
 }
 
@@ -998,10 +810,8 @@ main h2::before {
 label,
 legend {
   display: block;
-
   font-weight: 700;
   font-size: 0.94rem;
-
   margin-bottom: 0.45rem;
 }
 
@@ -1012,17 +822,12 @@ input[type="search"],
 select,
 textarea {
   width: 100%;
-
   padding: 0.8rem 1rem;
-
   font: inherit;
   color: var(--text);
-
   background: var(--surface-solid);
-
   border: 1.5px solid var(--border);
   border-radius: 12px;
-
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease,
@@ -1032,16 +837,14 @@ textarea {
 input::placeholder,
 textarea::placeholder {
   color: var(--muted);
-  opacity: 0.8;
+  opacity: 1;
 }
 
 select {
   appearance: none;
   padding-right: 2.5rem;
-
   background-image:
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23796CA0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-
   background-repeat: no-repeat;
   background-position: right 1rem center;
 }
@@ -1054,9 +857,7 @@ input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-
   border-color: var(--teal);
-
   box-shadow:
     0 0 0 4px rgba(121, 85, 217, 0.13);
 }
@@ -1069,7 +870,6 @@ input[type="checkbox"] {
 fieldset {
   border: 1px solid var(--border);
   border-radius: 12px;
-
   padding: 0.9rem 1.1rem 1rem;
   margin: 0 0 1.2rem;
 }
@@ -1083,7 +883,6 @@ legend {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-
   margin-top: 0.3rem;
 }
 
@@ -1091,17 +890,12 @@ legend {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-
   margin: 0;
   padding: 0.5rem 1.1rem;
-
   font-weight: 650;
-
   border: 1.5px solid var(--border);
   border-radius: 999px;
-
   cursor: pointer;
-
   transition:
     border-color 0.2s ease,
     background 0.2s ease;
@@ -1113,19 +907,15 @@ legend {
 
 .radio-row label:has(input:checked) {
   border-color: var(--teal);
-
   background: rgba(121, 85, 217, 0.12);
 }
 
 .error {
   display: block;
   min-height: 1.2em;
-
   margin-top: 0.3rem;
-
   font-size: 0.875rem;
   font-weight: 650;
-
   color: var(--danger);
 }
 
@@ -1149,25 +939,18 @@ textarea.valid {
 
 .success-message {
   margin: 1rem 0 0;
-
   padding: 1rem 1.2rem;
-
   font-weight: 650;
-
   color: var(--success);
   background: rgba(46, 125, 50, 0.09);
-
   border-left: 4px solid var(--success);
   border-radius: var(--radius-sm);
 }
-
-/* Filters */
 
 .filter-form {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-
   align-items: flex-end;
 }
 
@@ -1176,20 +959,15 @@ textarea.valid {
   margin-bottom: 0;
 }
 
-
-/* ---------- 8. TASK LIST ---------- */
-
 .task-count {
   color: var(--muted);
   font-weight: 650;
-
   margin-bottom: 1rem;
 }
 
 .task-list {
   list-style: none;
   padding: 0;
-
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -1199,23 +977,15 @@ textarea.valid {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
   gap: 1.2rem;
-
   background: var(--surface);
-
   border: var(--glass-border);
   border-left: 4px solid var(--border);
-
   border-radius: var(--radius);
-
   padding: 1.35rem 1.5rem;
-
   box-shadow: var(--shadow-sm);
-
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -1240,7 +1010,7 @@ textarea.valid {
 
 .task-item.done {
   background: var(--surface);
-  opacity: 0.72;
+  opacity: 1;
 }
 
 .task-item.done .task-title {
@@ -1262,9 +1032,7 @@ textarea.valid {
 .task-title {
   font-size: 1.12rem;
   font-weight: 750;
-
   margin-bottom: 0.45rem;
-
   overflow-wrap: anywhere;
 }
 
@@ -1272,23 +1040,17 @@ textarea.valid {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-
   gap: 0.45rem 1rem;
-
   font-size: 0.9rem;
   color: var(--muted);
 }
 
 .badge {
   display: inline-block;
-
   padding: 0.2rem 0.75rem;
-
   border-radius: 999px;
-
   font-size: 0.77rem;
   font-weight: 750;
-
   background: var(--border);
   color: var(--text);
 }
@@ -1310,15 +1072,13 @@ textarea.valid {
 
 .badge-overdue {
   background: var(--danger);
-  color: #fff;
+  color: var(--on-danger);
 }
 
 .task-notes {
   margin: 0.7rem 0 0;
-
   font-size: 0.95rem;
   overflow-wrap: anywhere;
-
   color: var(--muted);
 }
 
@@ -1330,19 +1090,14 @@ textarea.valid {
 
 .task-actions button {
   padding: 0.5rem 1rem;
-
   font: inherit;
   font-size: 0.86rem;
   font-weight: 700;
-
   background: var(--surface-solid);
   color: var(--link);
-
   border: 1.5px solid var(--border);
   border-radius: 10px;
-
   cursor: pointer;
-
   transition:
     background 0.2s ease,
     color 0.2s ease,
@@ -1351,7 +1106,7 @@ textarea.valid {
 
 .task-actions button:hover {
   background: var(--teal);
-  color: #fff;
+  color: var(--on-accent);
   border-color: var(--teal);
 }
 
@@ -1362,20 +1117,15 @@ textarea.valid {
 
 .task-actions .delete-btn:hover {
   background: var(--danger);
-  color: #fff;
+  color: var(--on-danger);
   border-color: var(--danger);
 }
-
-
-/* ---------- 9. ABOUT PAGE CARDS ---------- */
 
 .feature-grid,
 .team-grid {
   display: grid;
-
   grid-template-columns:
     repeat(auto-fit, minmax(230px, 1fr));
-
   gap: 1.25rem;
 }
 
@@ -1383,21 +1133,14 @@ textarea.valid {
 .team-card {
   position: relative;
   overflow: hidden;
-
   background: var(--surface);
-
   border: var(--glass-border);
   border-top: 3px solid var(--teal);
-
   border-radius: var(--radius);
-
   padding: 1.5rem;
-
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
-
   box-shadow: var(--shadow-sm);
-
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
@@ -1442,34 +1185,22 @@ textarea.valid {
 
 .tech-list li::before {
   content: "";
-
   position: absolute;
-
   left: 0;
   top: 0.6em;
-
   width: 0.55rem;
   height: 0.55rem;
-
   border-radius: 50%;
-
   background: var(--teal);
   box-shadow: 0 0 10px rgba(121, 85, 217, 0.4);
 }
 
-
-/* ---------- 10. FOOTER ---------- */
-
 .site-footer {
   margin-top: 4rem;
-
   background: #1B1430;
   color: #C7BBDD;
-
   border-top: 3px solid #9A76E8;
-
   padding-block: 2rem;
-
   font-size: 0.92rem;
 }
 
@@ -1477,7 +1208,6 @@ textarea.valid {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   flex-wrap: wrap;
   gap: 0.75rem 1.5rem;
 }
@@ -1490,14 +1220,10 @@ textarea.valid {
   color: #C9B3FF;
 }
 
-
-/* ---------- 11. RESPONSIVE ---------- */
-
-/* Tablets and phones */
-
 @media (max-width: 700px) {
   .header-inner {
     flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .nav-toggle {
@@ -1506,9 +1232,8 @@ textarea.valid {
 
   .site-nav {
     display: none;
-
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
 
   .site-nav.open {
@@ -1523,9 +1248,7 @@ textarea.valid {
 
   .site-nav li a {
     display: block;
-
     padding: 0.85rem 1rem;
-
     border-radius: var(--radius-sm);
     border-bottom: 1px solid var(--ink-line);
   }
@@ -1566,10 +1289,16 @@ textarea.valid {
   }
 }
 
-
-/* Very small phones */
-
 @media (max-width: 400px) {
+  .header-inner .logo {
+    font-size: 1.25rem;
+    gap: 0.45rem;
+  }
+
+  .nav-toggle {
+    padding-inline: 0.85rem;
+  }
+
   .container {
     padding-inline: 1rem;
   }
@@ -1592,9 +1321,6 @@ textarea.valid {
   }
 }
 
-
-/* Reduced motion */
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -1608,10 +1334,7 @@ textarea.valid {
   }
 }
 
-
-/* Fallback for browsers without backdrop-filter */
-
-@supports not (backdrop-filter: blur(10px)) {
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
   .stat-card,
   .progress-row,
   .task-item,
@@ -1620,6 +1343,105 @@ textarea.valid {
   .task-form,
   .filter-form,
   .upcoming-list li {
+    background: var(--surface-solid);
+  }
+}
+
+.focus-player {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: var(--glass-border);
+  border-top: 4px solid var(--teal);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.focus-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.focus-icon {
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: var(--radius-sm);
+  background: var(--teal);
+  color: var(--on-accent);
+}
+
+.focus-heading h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+.focus-heading p,
+.focus-hint {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.focus-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: end;
+}
+
+.focus-volume label {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.focus-volume output {
+  color: var(--link);
+  font-variant-numeric: tabular-nums;
+}
+
+.focus-volume input {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  margin: 0;
+  accent-color: var(--teal);
+  cursor: pointer;
+}
+
+.focus-play {
+  min-width: 7rem;
+}
+
+.focus-status {
+  color: var(--link);
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin: 1rem 0 0.4rem;
+}
+
+@media (max-width: 700px) {
+  .focus-player {
+    padding: 1.2rem;
+  }
+
+  .focus-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .focus-play {
+    width: 100%;
+  }
+}
+
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+  .focus-player {
     background: var(--surface-solid);
   }
 }

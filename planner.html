@@ -5,16 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Add, edit, filter and complete your study tasks in MaxTrack.">
         <title>MaxTrack | Planner</title>
+        <script src="js/theme.js"></script>
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
         <a class="skip-link" href="#main">Skip to main content</a>
 
-        <!-- Header and Navigation -->
         <header class="site-header">
             <div class="container header-inner">
                 <a class="logo" href="index.html">MaxTrack</a>
 
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme" hidden>
+                    <svg class="theme-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                        <path d="M20.9 13.35A9 9 0 0 1 10.65 3.1 9 9 0 1 0 20.9 13.35Z"/>
+                    </svg>
+                    <svg class="theme-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42m0-14.14-1.42 1.42m-11.3 11.3-1.42 1.42"/>
+                    </svg>
+                </button>
                 <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav">
                     Menu
                 </button>
@@ -30,18 +39,53 @@
 
         <main id="main">
 
-            <!-- Page title -->
             <section class="container section page-intro">
                 <h1>Study Planner</h1>
                 <p>Add a task, then filter and tick it off as you go. Everything is saved in your browser.</p>
             </section>
 
-            <!-- Add / Edit Task Form -->
+            <section class="container section focus-section" aria-labelledby="focusTitle">
+                <h2 id="focusTitle">Focus sounds</h2>
+                <div class="focus-player">
+                    <div class="focus-heading">
+                        <span class="focus-icon" aria-hidden="true">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                                <path d="M3 14v-3a9 9 0 0 1 18 0v3M3 13h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3zM21 13h-2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h2z"/>
+                            </svg>
+                        </span>
+                        <div>
+                            <h3>Your study soundtrack</h3>
+                            <p id="focusDescription">Soft instrumental tones for a quiet study session.</p>
+                        </div>
+                    </div>
+                    <div class="focus-controls">
+                        <div>
+                            <label for="focusSound">Sound</label>
+                            <select id="focusSound" aria-describedby="focusDescription">
+                                <option value="ambient">Ambient study music</option>
+                                <option value="white">White noise</option>
+                                <option value="pink">Pink noise</option>
+                                <option value="brown">Brown noise</option>
+                                <option value="alpha">Binaural beats - 10 Hz (Alpha)</option>
+                                <option value="theta">Binaural beats - 6 Hz (Theta)</option>
+                            </select>
+                        </div>
+                        <div class="focus-volume">
+                            <label for="focusVolume">Volume <output id="focusVolumeValue" for="focusVolume">25%</output></label>
+                            <input type="range" id="focusVolume" min="0" max="100" value="25">
+                        </div>
+                        <button type="button" class="btn btn-primary focus-play" id="focusPlay" disabled>Play</button>
+                    </div>
+                    <p class="focus-status" id="focusStatus" role="status">Ready to play.</p>
+                    <p class="focus-hint">Keep the volume comfortable. Use stereo headphones for binaural beats. Sound stops when you leave this page.</p>
+                    <noscript>Enable JavaScript to use focus sounds.</noscript>
+                </div>
+            </section>
+
             <section class="container section" aria-labelledby="formTitle">
                 <h2 id="formTitle">Add a task</h2>
 
                 <form id="taskForm" class="task-form" novalidate>
-                    <!-- Hidden field: holds the task id while editing -->
                     <input type="hidden" id="taskId" name="taskId">
 
                     <div class="form-group">
@@ -91,7 +135,6 @@
                 </form>
             </section>
 
-            <!-- Filters -->
             <section class="container section" aria-labelledby="filterTitle">
                 <h2 id="filterTitle">Find tasks</h2>
 
@@ -132,13 +175,11 @@
                 </form>
             </section>
 
-            <!-- Task List -->
             <section class="container section" aria-labelledby="listTitle">
                 <h2 id="listTitle">Your tasks</h2>
                 <p id="taskCount" class="task-count" aria-live="polite"></p>
 
                 <ul id="taskList" class="task-list">
-                    <!-- JavaScript (planner.js) adds one <li> per task here -->
                 </ul>
 
                 <p id="emptyMessage" class="empty-message">No tasks yet. Fill in the form above to add your first one.</p>
@@ -146,7 +187,6 @@
 
         </main>
 
-        <!-- Footer -->
         <footer class="site-footer">
             <div class="container footer-inner">
                 <p>&copy; 2026 MaxTrack. Web-Dev Mini Project, Bennett University.</p>
@@ -158,6 +198,7 @@
         <script src="js/nav.js"></script>
         <script src="js/validate.js"></script>
         <script src="js/planner.js"></script>
+        <script src="js/focus.js"></script>
 
     </body>
 </html>

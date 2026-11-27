@@ -1,25 +1,6 @@
-/* ==========================================================
-   storage.js - saves and loads tasks in the browser (localStorage)
-   Also holds the date helpers used by planner.js and dashboard.js.
-   Must be loaded BEFORE planner.js and dashboard.js.
-   ========================================================== */
-
 const STORAGE_KEY = "maxtrack.tasks";
 
-/* A task looks like this:
-   {
-     id: "k3j2h1ab",
-     title: "Finish Maths assignment",
-     subject: "Maths",
-     deadline: "2026-11-30",      // YYYY-MM-DD from <input type="date">
-     priority: "high",            // high | medium | low
-     notes: "Chapters 3 and 4",
-     done: false,
-     createdAt: "2026-11-25T10:00:00.000Z"
-   } */
-
 const TaskStore = {
-  // Read every task. Returns [] if nothing is saved or the data is broken.
   getAll() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -31,7 +12,6 @@ const TaskStore = {
     }
   },
 
-  // Write the whole array back. Returns true if it worked.
   saveAll(tasks) {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
@@ -85,9 +65,7 @@ const TaskStore = {
   }
 };
 
-/* ---------- Date helpers ---------- */
-
-// "2026-11-30" -> a Date at local midnight (avoids timezone shifts)
+// Use local midnight to avoid UTC date shifts.
 function parseLocalDate(text) {
   const parts = String(text).split("-").map(Number);
   if (parts.length !== 3 || parts.some(isNaN)) return null;
@@ -99,14 +77,12 @@ function startOfToday() {
   return new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
-// Whole days from today to the deadline (negative = already passed)
 function daysUntil(deadline) {
   const due = parseLocalDate(deadline);
   if (!due) return 0;
   return Math.round((due - startOfToday()) / 86400000);
 }
 
-// A task is overdue if it is not done and its deadline has passed
 function isOverdue(task) {
   return !task.done && daysUntil(task.deadline) < 0;
 }
@@ -121,7 +97,6 @@ function formatDate(deadline) {
   });
 }
 
-// Human-friendly text such as "Due tomorrow" or "3 days overdue"
 function describeDue(task) {
   if (task.done) return "Completed";
   const days = daysUntil(task.deadline);
